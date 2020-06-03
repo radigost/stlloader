@@ -2,12 +2,14 @@ import React from 'react';
 import styled from "styled-components";
 import {TeethCanvas} from "./TeethCanvas";
 import {Navigation} from "./Navigation";
+import {OASReader} from "./OASReader";
 
 function App() {
     return (
         <AppContainer>
             <AppHeader>
-                <TeethCanvas/>
+                <OASReader/>
+                {/*<TeethCanvas/>*/}
                 <Navigation/>
             </AppHeader>
         </AppContainer>
