@@ -3,45 +3,78 @@ import styled from "styled-components";
 import initSqlJs from "sql.js";
 import axios from 'axios'
 import {last, get} from 'lodash'
-// import * as wasm from '../sql-wasm.wasm'
+import {TeethCanvas} from "./TeethCanvas";
+
+const getOAS = async () => {
+    const res = await axios.get('http://localhost:3005/test2.oas', {
+        responseType: 'arraybuffer',
+        headers: {
+            'Accept': '*/*'
+        }
+    })
+    return res.data
+}
+
+const createDbFromOas = async () => {
+    const SQL = await initSqlJs(
+        {
+            locateFile: filename => `/static/js/${filename}`
+        })
+    const data = await getOAS();
+    const uInt8Array = new Uint8Array(data);
+
+    const database = new SQL.Database(uInt8Array);
+    return database
+}
+
+const getPrescription = (db) => {
+    const treatments = db.prepare("SELECT * FROM 'TREATMENT_PRESCRIPTION'");
+    let prescription
+    while (treatments.step()) { //
+        const row = treatments.getAsObject();
+        prescription = JSON.parse(row.PrescriptionStr)
+    }
+    treatments.free()
+    return prescription
+}
+const getCaseId = (db) => {
+    const stmt = db.prepare("SELECT * FROM 'CASES'");
+    let caseId
+    while (stmt.step()) { //
+        const row = stmt.getAsObject();
+        // setCaseId(row.CASEID)
+        caseId = row.CASEID
+
+    }
+    stmt.free();
+    return caseId
+}
+const get3dModel = (db) => {
+    const stmt = db.prepare("select * from ASSEMBLIES_ZIP where ID=0");
+    let model
+    while (stmt.step()) { //
+        const row = stmt.getAsObject();
+        model = row.UnsegmentedData
+    }
+    stmt.free();
+    return model
+}
+
+
 const OASReader = () => {
     const [loading, setLoading] = useState(false)
     const [db, setDb] = useState()
-    const [caseId, setCaseId] = useState()
     const [prescription, setPrescription] = useState()
+    const [model, setModel] = useState()
+    const [state, setState] = useState({
+        caseId: undefined,
+    })
 
-    const getOAS = async () => {
-        const res = await axios.get('/static/test.oas', {responseType: 'arraybuffer'})
-        return res.data
-    }
-    const setCases = useCallback(async () => {
-        const treatments = db.prepare("SELECT * FROM 'TREATMENT_PRESCRIPTION'");
-        while (treatments.step()) { //
-            const row = treatments.getAsObject();
-            setPrescription(JSON.parse(row.PrescriptionStr))
-        }
-        treatments.free()
-    }, [db])
-    const getCaseId = async () => {
-        var stmt = db.prepare("SELECT * FROM 'CASES'");
 
-        while (stmt.step()) { //
-            const row = stmt.getAsObject();
-            setCaseId(row.CASEID)
-        }
-        stmt.free()
-    }
     const initDb = async () => {
         setLoading(true)
         try {
-            const SQL = await initSqlJs(
-                {
-                    locateFile: filename => `/static/js/${filename}`
-                })
-            const data = await getOAS();
-            const uInt8Array = new Uint8Array(data);
-
-            const database = new SQL.Database(uInt8Array);
+            const database = await createDbFromOas()
             setDb(database)
             setLoading(false)
         } catch (e) {
@@ -55,28 +88,25 @@ const OASReader = () => {
 
     useEffect(() => {
         if (db) {
-            setCases()
-            getCaseId()
+            setPrescription(getPrescription(db))
+            setState({...state, caseId: getCaseId(db)})
+            setModel(get3dModel(db))
         }
     }, [db])
 
-
     return (
         <OASContainer>
-            {
-                loading ?
-                    <div>Loading...</div> :
+            {loading ?
+                <div>Loading...</div> :
+                <div>
+                    <h5>case id '{state.caseId}'</h5>
                     <div>
-                        <h5>case id '{caseId}'</h5>
-                        <div>
-
-                            <textarea  cols="40" rows="20">
-                                {JSON.stringify(prescription,undefined,4)}
+                            <textarea cols="40" rows="20" defaultValue={JSON.stringify(prescription, undefined, 4)}>
                             </textarea>
-                        </div>
+                        {/*<TeethCanvas model={model}/>*/}
                     </div>
+                </div>
             }
-
         </OASContainer>
     );
 };

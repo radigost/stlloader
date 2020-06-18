@@ -9,7 +9,7 @@ function App() {
         <AppContainer>
             <AppHeader>
                 <OASReader/>
-                {/*<TeethCanvas/>*/}
+
                 <Navigation/>
             </AppHeader>
         </AppContainer>
