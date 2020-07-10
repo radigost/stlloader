@@ -2,8 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import styled from "styled-components";
 import initSqlJs from "sql.js";
 import axios from 'axios'
-import {last, get} from 'lodash'
-import {TeethCanvas} from "./TeethCanvas";
+import store from "../store";
 
 const getOAS = async () => {
     const res = await axios.get('http://localhost:3005/test2.oas', {
@@ -35,6 +34,7 @@ const getPrescription = (db) => {
         prescription = JSON.parse(row.PrescriptionStr)
     }
     treatments.free()
+    console.log(prescription)
     return prescription
 }
 const getCaseId = (db) => {
@@ -62,7 +62,6 @@ const get3dModel = (db) => {
 
 
 const OASReader = () => {
-    const [loading, setLoading] = useState(false)
     const [db, setDb] = useState()
     const [prescription, setPrescription] = useState()
     const [model, setModel] = useState()
@@ -72,11 +71,17 @@ const OASReader = () => {
 
 
     const initDb = async () => {
-        setLoading(true)
+        console.log("loiading")
+        store.modifyState(state => {
+            state.oas.loading = true
+        })
         try {
             const database = await createDbFromOas()
             setDb(database)
-            setLoading(false)
+            store.modifyState(state => {
+                state.oas.loading = false
+            })
+            console.log("loiading")
         } catch (e) {
             console.error(e.message)
         }
@@ -96,7 +101,7 @@ const OASReader = () => {
 
     return (
         <OASContainer>
-            {loading ?
+            {store.state.oas.loading ?
                 <div>Loading...</div> :
                 <div>
                     <h5>case id '{state.caseId}'</h5>

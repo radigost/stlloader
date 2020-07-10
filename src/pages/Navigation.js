@@ -6,7 +6,11 @@ const Navigation = () => {
     return (
             <AppUi>
                 <AppUiButton>&larr;</AppUiButton>
+                <div>stages</div>
                 <AppUiButton>&rarr;</AppUiButton>
+                <div>arch filter</div>
+                <div>view shortcut</div>
+                <AppUiButton>Approve</AppUiButton>
             </AppUi>
     );
 };

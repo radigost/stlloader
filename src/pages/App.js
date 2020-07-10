@@ -1,17 +1,34 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import styled from "styled-components";
 import {TeethCanvas} from "./TeethCanvas";
 import {Navigation} from "./Navigation";
 import {OASReader} from "./OASReader";
+import {BrowserRouter, Link, useHistory, Route, Switch} from "react-router-dom";
+import {NavBar} from "./NavBar";
 
 function App() {
+
+
+
     return (
         <AppContainer>
-            <AppHeader>
-                <OASReader/>
-
-                <Navigation/>
-            </AppHeader>
+            <BrowserRouter>
+                <NavBar/>
+                <AppHeader>
+                    <Switch>
+                        <Route path="/oas">
+                            <OASReader/>
+                        </Route>
+                        <Route path="/stl">
+                            <TeethCanvas model={true}/>
+                            <Navigation/>
+                        </Route>
+                        <Route path="/">
+                            <p>This is example of Mobile Approver Prototype</p>
+                        </Route>
+                    </Switch>
+                </AppHeader>
+            </BrowserRouter>
         </AppContainer>
     );
 }
@@ -30,7 +47,6 @@ const AppHeader = styled.header`
     font-size: calc(10px + 2vmin);
     color: white;
 `
-
 
 
 export default App;

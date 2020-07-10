@@ -48,38 +48,38 @@ const TeethCanvas = ({model}) => {
             scene.add(light);
 
 
-            const loader = new GLTFLoader();
-            loader.parse(model.buffer,null,(gltf)=>{
-                console.log({gltf})
-            })
+            // const loader = new GLTFLoader();
+            // loader.parse(model.buffer,null,(gltf)=>{
+            //     console.log({gltf})
+            // })
 
 
 
-            // var loader = new STLLoader();
-            // loader.load(
-            //     "static/test.stl",
-            //     geometry => {
-            //         console.log("loaded", {geometry});
-            //         const material = new THREE.MeshStandardMaterial({
-            //             color: 0xFFFFFF,
-            //             side: THREE.DoubleSide,
-            //             // wireframe: true,
-            //             emissive: 0x000000,
-            //             roughness: 1,
-            //             flatShading: true
-            //         });
-            //         const object = new THREE.Mesh(geometry, material);
-            //         object.castShadow = true;
-            //         object.scale.set(0.15, 0.15, 0.15);
-            //         object.position.set(-0.3, -1.5, 0);
-            //         object.rotateX(-1.5);
-            //         object.rotateZ(0.7);
-            //         // object.scale(0.9,0.9,0.9);
-            //         scene.add(object);
-            //     },
-            //     console.log,
-            //     console.err
-            // );
+            var loader = new STLLoader();
+            loader.load(
+                "static/test.stl",
+                geometry => {
+                    console.log("loaded", {geometry});
+                    const material = new THREE.MeshStandardMaterial({
+                        color: 0xFFFFFF,
+                        side: THREE.DoubleSide,
+                        // wireframe: true,
+                        emissive: 0x000000,
+                        roughness: 1,
+                        flatShading: true
+                    });
+                    const object = new THREE.Mesh(geometry, material);
+                    object.castShadow = true;
+                    object.scale.set(0.15, 0.15, 0.15);
+                    object.position.set(-0.3, -1.5, 0);
+                    object.rotateX(-1.5);
+                    object.rotateZ(0.7);
+                    // object.scale(0.9,0.9,0.9);
+                    scene.add(object);
+                },
+                console.log,
+                console.err
+            );
 
             function render(time) {
                 time *= 0.001; // convert time to seconds
