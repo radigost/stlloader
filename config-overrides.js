@@ -8,6 +8,7 @@ module.exports = function override(config) {
             {from: 'node_modules/sql.js/dist/sql-wasm.wasm', to: 'static/js/'},
             {from: 'src/assets/test.oas', to: 'static/'},
             {from: 'src/assets/test.stl', to: 'static/'},
+            {from: 'src/assets', to: 'static/media/'},
         ]
     }));
     return config;

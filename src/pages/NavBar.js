@@ -1,10 +1,10 @@
 import React, {useCallback} from 'react';
-import {BrowserRouter, Link, useHistory} from "react-router-dom";
+import {BrowserRouter, Link, useHistory, useLocation} from "react-router-dom";
 import {Flex, TabBar} from "antd-mobile";
-import FlexItem from "antd-mobile/es/flex/FlexItem";
 
 const NavBar = () => {
     const history = useHistory();
+    const location = useLocation()
     const go = useCallback((route) => {
         if (history) {
             history.push(route)
@@ -24,23 +24,21 @@ const NavBar = () => {
                 icon={<div style={{
                     width: '22px',
                     height: '22px',
-                    background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat'
+                    background: 'url(static/media/Prescription.svg) center center /  21px 21px no-repeat'
                 }}
                 />
                 }
                 selectedIcon={<div style={{
                     width: '22px',
                     height: '22px',
-                    background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
+                    background: 'url(static/media/Prescription.svg) center center /  21px 21px no-repeat'
                 }}
                 />
                 }
-                // selected={this.state.selectedTab === 'blueTab'}
+                selected={location.pathname === '/oas'}
                 onPress={() => go("/oas")}
                 data-seed="logId"
             >
-                {/*<Link to="/oas">Prescription</Link>*/}
-                {/*{this.renderContent('Life')}*/}
             </TabBar.Item>
             <TabBar.Item
                 icon={
@@ -61,7 +59,7 @@ const NavBar = () => {
                 }
                 title="STL"
                 key="STL"
-                // selected={this.state.selectedTab === 'redTab'}
+                selected={location.pathname === '/stl'}
                 onPress={() => go("/stl")}
                 data-seed="logId1"
             >
@@ -71,7 +69,7 @@ const NavBar = () => {
                     <div style={{
                         width: '22px',
                         height: '22px',
-                        background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat'
+                        background: 'url(static/media/picture.svg) center center /  21px 21px no-repeat'
                     }}
                     />
                 }
@@ -79,13 +77,13 @@ const NavBar = () => {
                     <div style={{
                         width: '22px',
                         height: '22px',
-                        background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
+                        background: 'url(static/media/picture.svg) center center /  21px 21px no-repeat'
                     }}
                     />
                 }
                 title="Photo"
                 key="Photo"
-                // selected={this.state.selectedTab === 'redTab'}
+                selected={location.pathname === '/'}
                 onPress={() => go("/stl")}
                 data-seed="logId1"
             >
@@ -95,7 +93,7 @@ const NavBar = () => {
                     <div style={{
                         width: '22px',
                         height: '22px',
-                        background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat'
+                        background: 'url(static/media/notes.svg) center center /  21px 21px no-repeat'
                     }}
                     />
                 }
@@ -103,14 +101,14 @@ const NavBar = () => {
                     <div style={{
                         width: '22px',
                         height: '22px',
-                        background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
+                        background: 'url(static/media/notes.svg) center center /  21px 21px no-repeat'
                     }}
                     />
                 }
                 title="Notes"
                 key="Notes"
-                // selected={this.state.selectedTab === 'redTab'}
-                onPress={() => go("/stl")}
+                selected={location.pathname === '/notes'}
+                onPress={() => go("/notes")}
                 data-seed="logId1"
             >
             </TabBar.Item>

@@ -5,30 +5,34 @@ import {Navigation} from "./Navigation";
 import {OASReader} from "./OASReader";
 import {BrowserRouter, Link, useHistory, Route, Switch} from "react-router-dom";
 import {NavBar} from "./NavBar";
+import {OASProvider} from "../OASProvider";
+import {Notes} from "./Notes";
 
 function App() {
-
-
-
     return (
         <AppContainer>
-            <BrowserRouter>
-                <NavBar/>
-                <AppHeader>
-                    <Switch>
-                        <Route path="/oas">
-                            <OASReader/>
-                        </Route>
-                        <Route path="/stl">
-                            <TeethCanvas model={true}/>
-                            <Navigation/>
-                        </Route>
-                        <Route path="/">
-                            <p>This is example of Mobile Approver Prototype</p>
-                        </Route>
-                    </Switch>
-                </AppHeader>
-            </BrowserRouter>
+            <OASProvider>
+                <BrowserRouter>
+                    <NavBar/>
+                    <AppHeader>
+                        <Switch>
+                            <Route path="/oas">
+                                <OASReader/>
+                            </Route>
+                            <Route path="/stl">
+                                <TeethCanvas model={true}/>
+                                <Navigation/>
+                            </Route>
+                            <Route path="/notes">
+                                <Notes />
+                            </Route>
+                            <Route path="/">
+                                <p>This is example of Mobile Approver Prototype</p>
+                            </Route>
+                        </Switch>
+                    </AppHeader>
+                </BrowserRouter>
+            </OASProvider>
         </AppContainer>
     );
 }
