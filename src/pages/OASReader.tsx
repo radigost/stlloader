@@ -1,8 +1,7 @@
-import React, { useContext, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import styled from "styled-components";
-import {ActionTypes, OasContext, OASProvider} from "../OASProvider";
+import {ActionTypes, OasContext} from "../OASProvider";
 import {generateDbFromDefaultOAS} from "../OASManager";
-
 
 
 const OASReader = () => {
@@ -26,16 +25,16 @@ const OASReader = () => {
     </OASContainer>
 };
 
-const OASText = ({}) => {
+const OASText = () => {
     const context = useContext(OasContext)
     return <textarea
         cols={40}
-        rows={20}
+        rows={30}
         defaultValue={JSON.stringify(context.prescription, undefined, 4)}
     />
 }
 
 const OASContainer = styled.div`
-    height: 80vh;
+    height: 95vh;
 `
 export {OASReader};

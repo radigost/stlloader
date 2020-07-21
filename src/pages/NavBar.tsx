@@ -64,30 +64,30 @@ const NavBar = () => {
                 data-seed="logId1"
             >
             </TabBar.Item>
-            <TabBar.Item
-                icon={
-                    <div style={{
-                        width: '22px',
-                        height: '22px',
-                        background: 'url(static/media/picture.svg) center center /  21px 21px no-repeat'
-                    }}
-                    />
-                }
-                selectedIcon={
-                    <div style={{
-                        width: '22px',
-                        height: '22px',
-                        background: 'url(static/media/picture.svg) center center /  21px 21px no-repeat'
-                    }}
-                    />
-                }
-                title="Photo"
-                key="Photo"
-                selected={location.pathname === '/'}
-                onPress={() => go("/stl")}
-                data-seed="logId1"
-            >
-            </TabBar.Item>
+            {/*<TabBar.Item*/}
+            {/*    icon={*/}
+            {/*        <div style={{*/}
+            {/*            width: '22px',*/}
+            {/*            height: '22px',*/}
+            {/*            background: 'url(static/media/picture.svg) center center /  21px 21px no-repeat'*/}
+            {/*        }}*/}
+            {/*        />*/}
+            {/*    }*/}
+            {/*    selectedIcon={*/}
+            {/*        <div style={{*/}
+            {/*            width: '22px',*/}
+            {/*            height: '22px',*/}
+            {/*            background: 'url(static/media/picture.svg) center center /  21px 21px no-repeat'*/}
+            {/*        }}*/}
+            {/*        />*/}
+            {/*    }*/}
+            {/*    title="Photo"*/}
+            {/*    key="Photo"*/}
+            {/*    selected={location.pathname === '/'}*/}
+            {/*    onPress={() => go("/stl")}*/}
+            {/*    data-seed="logId1"*/}
+            {/*>*/}
+            {/*</TabBar.Item>*/}
             <TabBar.Item
                 icon={
                     <div style={{

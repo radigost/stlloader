@@ -14,7 +14,7 @@ function App() {
             <OASProvider>
                 <BrowserRouter>
                     <NavBar/>
-                    <AppHeader>
+                    <PageContainer>
                         <Switch>
                             <Route path="/oas">
                                 <OASReader/>
@@ -30,7 +30,7 @@ function App() {
                                 <p>This is example of Mobile Approver Prototype</p>
                             </Route>
                         </Switch>
-                    </AppHeader>
+                    </PageContainer>
                 </BrowserRouter>
             </OASProvider>
         </AppContainer>
@@ -42,7 +42,7 @@ const AppContainer = styled.div`
     text-align: center;
 `
 
-const AppHeader = styled.header`
+const PageContainer = styled.header`
     background-color: #282c34;
     display: flex;
     flex-direction: column;

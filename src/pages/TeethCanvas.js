@@ -13,17 +13,17 @@ const TeethCanvas = ({model}) => {
             const backgroundColor = 0xafeeee;
 
 
-            var scene = new THREE.Scene();
+            const scene = new THREE.Scene();
 
-            var camera = new THREE.PerspectiveCamera(
+            const camera = new THREE.PerspectiveCamera(
                 70,
-                window.innerWidth / window.innerHeight,
+                canvas.innerWidth / canvas.innerHeight,
                 0.1,
                 800
             );
             camera.position.set(5, 5, 5);
 
-            var renderer = new THREE.WebGLRenderer({antialias: true});
+            const renderer = new THREE.WebGLRenderer({antialias: true});
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, (window.innerHeight * 0.8));
             renderer.setClearColor(backgroundColor); //0x );
@@ -36,16 +36,16 @@ const TeethCanvas = ({model}) => {
             canvas.appendChild(renderer.domElement);
 
 
-            var controls = new OrbitControls(camera, renderer.domElement);
+            const controls = new OrbitControls(camera, renderer.domElement);
 
 
-            var light = new THREE.PointLight(0xffffff, 2, 100);
+            const light = new THREE.PointLight(0xffffff, 2, 100);
             light.position.set(4, 5, -30);
             scene.add(light);
 
-            var light = new THREE.PointLight(0xffffff, 2, 100);
-            light.position.set(4, 5, 30);
-            scene.add(light);
+            const light2 = new THREE.PointLight(0xffffff, 2, 100);
+            light2.position.set(4, 5, 30);
+            scene.add(light2);
 
 
             // const loader = new GLTFLoader();
@@ -55,7 +55,7 @@ const TeethCanvas = ({model}) => {
 
 
 
-            var loader = new STLLoader();
+            const loader = new STLLoader();
             loader.load(
                 "static/test.stl",
                 geometry => {
@@ -116,7 +116,7 @@ const TeethCanvas = ({model}) => {
 
 
 const AppCanvas = styled.div`
-    height: 80vh;
+    height: 72vh;
 `
 
 
