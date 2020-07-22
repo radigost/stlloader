@@ -1,41 +1,7 @@
-import React, {Dispatch, DispatchWithoutAction, useReducer, useState} from "react";
-
-const getPrescription = (db: any) => {
-    const treatments = db.prepare("SELECT * FROM 'TREATMENT_PRESCRIPTION'");
-    let prescription
-    while (treatments.step()) { //
-        const row = treatments.getAsObject();
-        prescription = JSON.parse(row.PrescriptionStr)
-    }
-    treatments.free()
-    return prescription
-}
-const getCaseId = (db: any) => {
-    const stmt = db.prepare("SELECT * FROM 'CASES'");
-    let caseId
-    while (stmt.step()) { //
-        const row = stmt.getAsObject();
-        caseId = row.CASEID
-    }
-    stmt.free();
-    return caseId
-}
-const get3dModel = (db: any) => {
-    const stmt = db.prepare("select * from ASSEMBLIES_ZIP where ID=0");
-    let model
-    while (stmt.step()) { //
-        const row = stmt.getAsObject();
-        model = row.UnsegmentedData
-    }
-    stmt.free();
-    console.log({model})
-    return model
-}
-
-
-enum ActionTypes {
-    'INIT_DB' = 'INIT_DB'
-}
+import React, {useReducer} from "react";
+import {OASState} from "./domain/OASState";
+import {getCaseId, getPrescription, updateNotes} from "./Statements";
+import {ActionTypes} from "./domain/ActionTypes";
 
 const initialState = {
     loading: false,
@@ -45,42 +11,34 @@ const initialState = {
     dispatch: undefined
 }
 
-interface Prescription {
-    submissionForm: {
-        postedNotes: string
-    }
-
-}
-
-interface OASState {
-    loading: boolean,
-    dispatch?: Dispatch<{ type: ActionTypes, payload: any }>
-    caseId?: string
-    prescription?: Prescription
-}
 
 const OasContext = React.createContext<OASState>(initialState);
 
 const OASProvider: React.FC = ({children}) => {
     const [state, dispatch] = useReducer((state: OASState, action: any) => {
+        let newState = state
         switch (action.type) {
             case ActionTypes.INIT_DB:
                 try {
                     const database = action.payload
-                    const newState = {
+                    newState = {
                         ...state, db: database,
                         prescription: getPrescription(database),
                         loading: false,
                         caseId: getCaseId(database)
                     }
-                    return newState;
                 } catch (e) {
                     console.error(e.message)
                 }
+                break
+            case ActionTypes.UPDATE_NOTE:
+                updateNotes(state.db, action.payload)
+                break
             default:
                 throw new Error();
         }
-        ;
+        return newState
+            ;
     }, initialState);
     return (
         <OasContext.Provider
@@ -94,4 +52,4 @@ const OASProvider: React.FC = ({children}) => {
 }
 
 
-export {OasContext, OASProvider, ActionTypes}
+export {OasContext, OASProvider}

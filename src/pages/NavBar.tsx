@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
-import {BrowserRouter, Link, useHistory, useLocation} from "react-router-dom";
-import {Flex, TabBar} from "antd-mobile";
+import {useHistory, useLocation} from "react-router-dom";
+import {TabBar} from "antd-mobile";
 
 const NavBar = () => {
     const history = useHistory();
@@ -64,30 +64,6 @@ const NavBar = () => {
                 data-seed="logId1"
             >
             </TabBar.Item>
-            {/*<TabBar.Item*/}
-            {/*    icon={*/}
-            {/*        <div style={{*/}
-            {/*            width: '22px',*/}
-            {/*            height: '22px',*/}
-            {/*            background: 'url(static/media/picture.svg) center center /  21px 21px no-repeat'*/}
-            {/*        }}*/}
-            {/*        />*/}
-            {/*    }*/}
-            {/*    selectedIcon={*/}
-            {/*        <div style={{*/}
-            {/*            width: '22px',*/}
-            {/*            height: '22px',*/}
-            {/*            background: 'url(static/media/picture.svg) center center /  21px 21px no-repeat'*/}
-            {/*        }}*/}
-            {/*        />*/}
-            {/*    }*/}
-            {/*    title="Photo"*/}
-            {/*    key="Photo"*/}
-            {/*    selected={location.pathname === '/'}*/}
-            {/*    onPress={() => go("/stl")}*/}
-            {/*    data-seed="logId1"*/}
-            {/*>*/}
-            {/*</TabBar.Item>*/}
             <TabBar.Item
                 icon={
                     <div style={{

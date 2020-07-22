@@ -1,7 +1,8 @@
 import React, {useContext, useEffect} from 'react';
 import styled from "styled-components";
-import {ActionTypes, OasContext} from "../OASProvider";
+import {OasContext} from "../OASProvider";
 import {generateDbFromDefaultOAS} from "../OASManager";
+import {ActionTypes} from "../domain/ActionTypes";
 
 
 const OASReader = () => {

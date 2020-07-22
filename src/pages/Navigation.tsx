@@ -12,27 +12,30 @@ const Navigation = () => {
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => <Stage active={num === current} key={num}>{num}</Stage>)}
             </StagesContainer>
             <ArchesContainer>
-                <ButtonWrapper><img src="static/media/top.png" height={size} width={size}/></ButtonWrapper>
-                <ButtonWrapper><img src="static/media/bottom.png" height={size} width={size}/></ButtonWrapper>
-                <ButtonWrapper><img src="static/media/both.png" height={size} width={size}/></ButtonWrapper>
+                <ButtonWrapper><img alt="top" src="static/media/top.png" height={size} width={size}/></ButtonWrapper>
+                <ButtonWrapper><img alt="bottom" src="static/media/bottom.png" height={size}
+                                    width={size}/></ButtonWrapper>
+                <ButtonWrapper><img alt="both" src="static/media/both.png" height={size} width={size}/></ButtonWrapper>
             </ArchesContainer>
             <ViewsContainer>
-                <ButtonWrapper><img src="static/media/top.png" height={size} width={size}/></ButtonWrapper>
-                <ButtonWrapper><img src="static/media/bottom.png" height={size} width={size}/></ButtonWrapper>
-                <ButtonWrapper><img src="static/media/both.png" height={size} width={size}/></ButtonWrapper>
-                <ButtonWrapper><img src="static/media/left.png" height={size} width={size}/></ButtonWrapper>
-                <ButtonWrapper><img src="static/media/right.png" height={size} width={size}/></ButtonWrapper>
-                <ButtonWrapper><img src="static/media/back.png" height={size} width={size}/></ButtonWrapper>
+                <ButtonWrapper><img alt="top" src="static/media/top.png" height={size} width={size}/></ButtonWrapper>
+                <ButtonWrapper><img alt="bottom" src="static/media/bottom.png" height={size}
+                                    width={size}/></ButtonWrapper>
+                <ButtonWrapper><img alt="both" src="static/media/both.png" height={size} width={size}/></ButtonWrapper>
+                <ButtonWrapper><img alt="left" src="static/media/left.png" height={size} width={size}/></ButtonWrapper>
+                <ButtonWrapper><img alt="right" src="static/media/right.png" height={size}
+                                    width={size}/></ButtonWrapper>
+                <ButtonWrapper><img alt="back" src="static/media/back.png" height={size} width={size}/></ButtonWrapper>
             </ViewsContainer>
             <ArrowsContainer>
                 <FlexItem>
                     <Button onClick={() => current > 1 && setCurrent(current - 1)}>&larr;</Button>
                 </FlexItem>
                 <FlexItem>
-                    <Button  onClick={() => current < 10 && setCurrent(current + 1)}>&rarr;</Button>
+                    <Button onClick={() => current < 10 && setCurrent(current + 1)}>&rarr;</Button>
                 </FlexItem>
             </ArrowsContainer>
-            <Button >Approve</Button>
+            <Button>Approve</Button>
         </AppUi>
     );
 };
@@ -74,17 +77,12 @@ const StagesContainer = styled.div`
 const AppUi = styled.div`
     height: 20vh;
     width: 100%;
+    z-index: 1;
     background-color: #70e1e1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     color: aliceblue;
-`
-
-const AppUiButton = styled(Button)`
-    width: 20%;
-    font-size: xx-large;
-   
 `
 
 export {Navigation};

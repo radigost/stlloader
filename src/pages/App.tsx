@@ -1,9 +1,9 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import {TeethCanvas} from "./TeethCanvas";
 import {Navigation} from "./Navigation";
 import {OASReader} from "./OASReader";
-import {BrowserRouter, Link, useHistory, Route, Switch} from "react-router-dom";
+import {BrowserRouter,  Route, Switch} from "react-router-dom";
 import {NavBar} from "./NavBar";
 import {OASProvider} from "../OASProvider";
 import {Notes} from "./Notes";
@@ -20,11 +20,11 @@ function App() {
                                 <OASReader/>
                             </Route>
                             <Route path="/stl">
-                                <TeethCanvas model={true}/>
+                                <TeethCanvas />
                                 <Navigation/>
                             </Route>
                             <Route path="/notes">
-                                <Notes />
+                                <Notes/>
                             </Route>
                             <Route path="/">
                                 <p>This is example of Mobile Approver Prototype</p>

@@ -1,18 +1,30 @@
-import React, {useContext} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {OasContext} from "../OASProvider";
 import {Button} from "antd-mobile";
+import {ActionTypes} from "../domain/ActionTypes";
 
 const Notes = () => {
     const context = useContext(OasContext)
-    console.log(context.prescription?.submissionForm.postedNotes)
+    const {dispatch} = context
+    const [note, setNote] = useState(context.prescription?.submissionForm.postedNotes)
+    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        console.log(event.target.value)
+        setNote(event.target.value);
+    };
+    const save = useCallback(() => {
+        if (dispatch) {
+            dispatch({type: ActionTypes.UPDATE_NOTE, payload: note})
+        }
+    }, [dispatch, note])
+
     return (
         <div>
             <textarea
-                cols={40}
-                rows={20}
-                defaultValue={context.prescription?.submissionForm?.postedNotes}
+                rows={25}
+                value={note}
+                onChange={handleChange}
             />
-            <Button>Save</Button>
+            <Button onClick={save}>Save</Button>
         </div>
     );
 };
