@@ -9,9 +9,17 @@ const OASReader = () => {
     const context = useContext(OasContext)
     const {dispatch} = context
     useEffect(() => {
-        generateDbFromDefaultOAS().then((database) => {
-            dispatch && dispatch({type: ActionTypes.INIT_DB, payload: database})
-        })
+        if (!context.db){
+            generateDbFromDefaultOAS().then((database) => {
+                dispatch && dispatch({
+                    type: ActionTypes.INIT_DB, payload: database
+                })
+            })
+        }else {
+            dispatch && dispatch({
+                type: ActionTypes.INIT_DB, payload: context.db
+            })
+        }
     }, [dispatch])
 
 

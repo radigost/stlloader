@@ -29,8 +29,10 @@ const OASProvider: React.FC = ({children}) => {
                     }
                 } catch (e) {
                     console.error(e.message)
+                } finally {
+                    break
                 }
-                break
+
             case ActionTypes.UPDATE_NOTE:
                 updateNotes(state.db, action.payload)
                 break

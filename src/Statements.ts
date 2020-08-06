@@ -1,19 +1,22 @@
 import {SqlJs} from "sql.js/module";
+import _ from "lodash";
 
-const getPrescription = (db: SqlJs.Database) => {
-    const treatments = db.prepare("SELECT * FROM 'TREATMENT_PRESCRIPTION' WHERE ID=2");
-    let prescription
-    while (treatments.step()) {
-        const row = treatments.getAsObject();
-        prescription = JSON.parse(row.PrescriptionStr as string)
+const getPrescription = (db?: SqlJs.Database) => {
+    if (db) {
+        const prescriptions = db.prepare("SELECT * FROM 'TREATMENT_PRESCRIPTION' WHERE ID=2");
+        let prescription
+        while (prescriptions.step()) {
+            const row = prescriptions.getAsObject();
+            prescription = JSON.parse(row.PrescriptionStr as string)
+        }
+        prescriptions.free()
+        return prescription
     }
-    treatments.free()
-    return prescription
 }
 const getCaseId = (db: any) => {
     const stmt = db.prepare("SELECT * FROM 'CASES'");
     let caseId
-    while (stmt.step()) { //
+    while (stmt.step()) {
         const row = stmt.getAsObject();
         caseId = row.CASEID
     }
@@ -34,15 +37,21 @@ const updateNotes = (db?: SqlJs.Database, note?: string) => {
     if (db) {
         const prescription = getPrescription(db)
         prescription.submissionForm.postedNotes = note;
-        const str = `'${JSON.stringify(prescription,null,"\t")}'`
-        // console.log(str)
-        const statementString = `UPDATE TREATMENT_PRESCRIPTION SET PrescriptionStr=${str}  WHERE ID = 2`
+        prescription.submissionForm.date = ""
+        let str = `'${JSON.stringify(prescription.submissionForm, (key, value) => {
+            if (_.isString(value)) {
+                return value.replace("'", "")
+            } else {
+                return value
+            }
+        }, "\t")}'`
+        const statementString = `UPDATE TREATMENT_PRESCRIPTION SET PrescriptionStr=${str}WHERE ID=2`
+        const statements = []
+        statements.push(statementString)
         console.log(statementString)
-        // const stmt = db.prepare(statementString);
-        // stmt.run()
-        // stmt.free();
         return true
+    } else {
+        return false
     }
-
 }
 export {getCaseId, get3dModel, getPrescription, updateNotes}

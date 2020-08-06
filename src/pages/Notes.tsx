@@ -7,13 +7,11 @@ const Notes = () => {
     const context = useContext(OasContext)
     const {dispatch} = context
     const [note, setNote] = useState(context.prescription?.submissionForm.postedNotes)
-    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        console.log(event.target.value)
-        setNote(event.target.value);
-    };
+    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setNote(event.target.value);
     const save = useCallback(() => {
         if (dispatch) {
             dispatch({type: ActionTypes.UPDATE_NOTE, payload: note})
+            setNote(note)
         }
     }, [dispatch, note])
 
